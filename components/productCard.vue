@@ -44,25 +44,28 @@ export default {
     changeHeart(index){
         this.changeheartt=this.changeheartt.map(el=>
         el == "true" ? "false" : "false")
-        if("cart" in localStorage)
-             this.product=JSON.parse(localStorage.getItem("cart"))
-        if(this.changeheartt[index]) {
+        if("Wishlist" in localStorage){
+            this.product=JSON.parse(localStorage.getItem("Wishlist"))
+            if(this.changeheartt[index]) {
             this.changeheartt[index]=false 
-          
-                this.product.push({product:this.data,mount:1})
-                localStorage.setItem("cart",JSON.stringify(this.product))
-            
-            
-        }
-        
-        else  {
-            console.log(this.changeheartt[index])
-            this.changeheartt[index]=true
-            console.log(this.changeheartt[index])
             this.product=this.product.filter(el=>el.product.id != this.data.id)
-            console.log(this.product)
-            localStorage.setItem("cart",JSON.stringify(this.product))
-        }  
+            
+            localStorage.setItem("Wishlist",JSON.stringify(this.product))}
+        
+            else  {
+             
+                this.changeheartt[index]=true
+                this.product.push({product:this.data,mount:1})
+                localStorage.setItem("Wishlist",JSON.stringify(this.product))
+            }  
+        }
+        else{
+            this.changeheartt[index]=true
+            this.product.push({product:this.data,mount:1})
+            localStorage.setItem("Wishlist",JSON.stringify(this.product))
+        }
+           
+        
 
     },
  
