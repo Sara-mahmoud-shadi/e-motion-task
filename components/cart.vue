@@ -2,20 +2,20 @@
 <template>
   <div>
     <div
-      class="cart container"
+      class="cart container pt-5"
       :class="[this.showicon == true ? 'displayshow' : '']"
     >
-      <div class="row justify-content-between m-4">
+      <div class="row justify-content-around m-4">
         <div class="fs">Subtotal</div>
         <div class="fs">{{ subtotal.toFixed(2) }} EGP</div>
       </div>
       <nuxt-link to="/checkOut" class="btncheck mb-4">Check out</nuxt-link>
       <div class="container" v-for="(productcar, index) in this.productcart">
         <div class="row justify-content-between containn">
-          <div class="col-3">
+          <div class="col-lg-3">
             <img class="w-100 h-100" :src="productcar.product.thumbnail" />
           </div>
-          <div class="col-9">
+          <div class="col-lg-9">
             <p>{{ productcar.product.name }}</p>
             <span class="price"
               >{{ productcar.product.price.toFixed(2) * productcar.mount }} EGP</span
@@ -24,11 +24,12 @@
               / {{ productcar.weight }} gm</span
             >
 
-            <div class="d-flex justify-content-between container">
+            <div class="d-block d-md-flex justify-content-between mt-3">
               <updateButtonOrder
                 :quantity="productcar.mount"
                 :index="index"
                 @totalPrice="totalPrice"
+                class="mb-3"
               ></updateButtonOrder>
               <div class="d-flex justify-content-between">
                 <button class="remove button" @click="deleteproduct(index)">
@@ -153,8 +154,8 @@ export default {
   transition: right 1s ease-in;
   top: 0px;
   bottom: 0;
-  right: -800px;
-  width: 50%;
+  right: -1800px;
+  width: 70%;
   background-color: white;
   border: 0.5px solid #027a62;
   z-index: 2;

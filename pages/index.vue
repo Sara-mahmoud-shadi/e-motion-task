@@ -1,22 +1,27 @@
 <template>
   <div class="body">
-    <div class="row">
-      <div class="col-11">
-        <div class="m-5">
-          <div class="row justify-content-end mb-4">
-            <div class="filter">
-              <template v-for="(filter, index) in filterdata">
-                <button
+    <div class="card">
+      <div>
+        <div class="basket mx-5 mt-3">
+          <button @click="showicons()">
+          <h6 class="ordersize">{{ productcart.length}}</h6>
+          <b-icon-basket2-fill class="icon"></b-icon-basket2-fill>
+        </button>
+        </div>
+        
+        <div class="mx-5">
+        
+            <div class="filter mb-5">
+                <button v-for="(filter, index) in filterdata"
                   @click="filterCategory(filter.key, index)"
                   :class="{ activee: active[index] }"
                 >
                   {{ filter.value }}
                 </button>
-              </template>
-            </div>
-          </div>
+              </div>
+       
           <div class="row justify-content-between mx-2">
-            <div class="d-flex justify-content-around">
+            <div class="d-flex justify-content-around mb-3">
               <div class="pr-2">{{ this.products.length }}</div>
               <div class="pr-2">products</div>
               <b-icon-grid-fill
@@ -24,7 +29,7 @@
               ></b-icon-grid-fill>
               <b-icon-list-ul class="pl-1 gridfill"></b-icon-list-ul>
             </div>
-            <div>Sort By <span class="newfirst">Newest First</span></div>
+            <div >Sort By <span class="newfirst">Newest First</span></div>
           </div>
           <hr />
           <div class="row">
@@ -50,12 +55,7 @@
           @changecolor="changecolor($event)"
         ></cart>
       </div>
-      <div class="col-1 basket position-relative">
-        <button @click="showicons()">
-          <h6 class="ordersize">{{ productcart.length}}</h6>
-          <b-icon-basket2-fill class="icon"></b-icon-basket2-fill>
-        </button>
-      </div>
+      
     </div>
   </div>
 </template>
@@ -127,7 +127,6 @@ export default {
         this.productcart = JSON.parse(localStorage.getItem("cart"));
         for (let i of this.productcart)
           this.subtotal += i.product.price * i.mount;
-          console.log(this.productcart[0].product.price)
       }
     },
     changeQuantity(){
@@ -151,11 +150,24 @@ export default {
             this.productcart.push({ product, mount: this.mount });
             localStorage.setItem("cart", JSON.stringify(this.productcart));
           }
+          else{
+            exist.mount++
+            console.log(exist.mount) 
+            localStorage.setItem("cart", JSON.stringify(this.productcart));
+          }
         } else {
           this.productcart.push({ product, mount: this.mount });
           localStorage.setItem("cart", JSON.stringify(this.productcart));
         }
         this.total();
+        let body = "Success";
+            this.$bvToast.toast(body, {
+              //  title: this.$t('form.postingRequest.selectedDestination.fillCity'),
+              variant: 'success',
+              toaster: 'b-toaster-top-center',
+              solid: true,
+              autoHideDelay: 2000,
+            });
       }
     },
     showicons() {
@@ -169,29 +181,29 @@ export default {
 .body {
   overflow-x: hidden;
 }
-.total {
-  font-weight: 700;
-  font-size: 1.2em;
-}
-
-.icon {
-  position: absolute;
-  top: 60px;
-  right: 40px;
-  font-size: 40px;
-  z-index: 3;
-  color: #007a5e;
-}
-.ordersize {
+.basket{    
+  display: flex;
+  justify-content: end;
+  z-index: 44;
   position: relative;
-  z-index: 3;
-  right: 0;
 }
-.mount {
-  display: inline-block !important;
+.card button{
+ 
+    background-color: transparent;
+    border: none;
+    outline: none;
+
 }
-.basket {
-  background-color: #dfe0e1;
+.filter{
+  display: flex;
+    justify-content: end;
+}
+.card h6{margin-bottom: -10%;}
+.icon {    
+   
+    font-size: 40px;
+    z-index: 3;
+    color: #007a5e;
 }
 .basket button {
   background-color: transparent;
@@ -224,9 +236,7 @@ export default {
   width: 35px;
 }
 .ordersize {
-  position: absolute;
-  top: 5% !important;
-  right: 49%;
   color: #df1818;
+  z-index: 4;
 }
 </style>

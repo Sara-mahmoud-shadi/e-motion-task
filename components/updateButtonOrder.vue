@@ -1,7 +1,7 @@
 <template>
             <div class="mount">
                 <button class="btnmin" @click="decreasemount(index)">-</button>
-                <input type="number" min="1" v-model="mount"  @change="changemount(index)">
+                <input type="number" min="1" v-model="quantity"  @change="changemount(index)">
                 <button class="btnplus" @click="increasemount(index)">+</button>
                </div>
 
@@ -11,19 +11,7 @@ export default {
     props:['quantity','index'],
     mounted(){
       
-      if(this.$route?.name?.includes('index')){
-       
-        if("cart" in localStorage){
-          this.productcart=JSON.parse(localStorage.getItem("cart"))
-         this.mount=this.productcart[this.index].mount
-        
-        }
-      }
-      else{
-     
-        this.mount=this.quantity
-      }
-      
+     // this.mount=this.quantity
     },
     data(){
         return{
@@ -33,16 +21,23 @@ export default {
     },
     methods:{
     decreasemount(index){
-      
       if(this.$route?.name?.includes('index')){
       this.productcart=JSON.parse(localStorage.getItem("cart"))
-      this.productcart[index].mount--
-      this.mount=this.productcart[index].mount
-      localStorage.setItem("cart",JSON.stringify(this.productcart))
-      this.$emit("totalPrice")}
+      if(this.productcart[index].mount >=2){
+            this.productcart[index].mount--
+          this.mount=this.productcart[index].mount
+          this.quantity=this.productcart[index].mount
+          localStorage.setItem("cart",JSON.stringify(this.productcart))
+          this.$emit("totalPrice")}
+      }
       else{
-        this.mount--
+        if(this.mount>=2){
+          this.mount--
+        this.quantity=this.mount
+        
         this.$emit("decreas",this.mount)
+        }
+        
       }
       
     },
@@ -52,12 +47,17 @@ export default {
       this.productcart=JSON.parse(localStorage.getItem("cart"))
       this.productcart[index].mount++
       this.mount=this.productcart[index].mount
+      this.quantity=this.productcart[index].mount
       localStorage.setItem("cart",JSON.stringify(this.productcart))
       this.$emit("totalPrice")
       }
       else{
-        this.mount++
+
+          this.mount++
+          this.quantity=this.mount
         this.$emit("increase",this.mount)
+        
+        
       }
      
     },
@@ -94,7 +94,7 @@ export default {
     font-weight: 700;
 }
 input{
-    width: 30% !important;
+    width: 35% !important;
     margin-left: -7px !important;
     margin-right: -5px !important;
     text-align: center;

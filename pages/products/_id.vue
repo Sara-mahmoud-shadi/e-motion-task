@@ -16,7 +16,7 @@
         </select>
         <p class="mb-2 quantity">Quantity</p>
         <div>
-          <div class="mount">
+          <div class="mount mb-4">
             <updateButtonOrder
               :quantity="mount"
               :index="proid"
@@ -75,6 +75,7 @@ export default {
   methods: {
     decreasMount(val) {
       this.mount = val;
+      console.log(this.mount)
     },
     increaseMount(val) {
       this.mount = val;
@@ -106,6 +107,12 @@ export default {
             });
             localStorage.setItem("cart", JSON.stringify(this.productcart));
           }
+          else{
+           
+            existweight.mount=this.mount+existweight.mount
+            console.log(existweight.mount)
+            localStorage.setItem("cart", JSON.stringify(this.productcart));
+          }
         } else {
           this.productcart.push({
             product,
@@ -120,8 +127,17 @@ export default {
           mount: this.mount,
           weight: this.weightvalue,
         });
-        localStorage.setItem("cart", JSON.stringify(this.productcart));
+       
       }
+      localStorage.setItem("cart", JSON.stringify(this.productcart));
+        let body = "Success";
+            this.$bvToast.toast(body, {
+              //  title: this.$t('form.postingRequest.selectedDestination.fillCity'),
+              variant: 'success',
+              toaster: 'b-toaster-top-center',
+              solid: true,
+              autoHideDelay: 2000,
+            });
     },
   
   },
@@ -141,12 +157,7 @@ export default {
   font-weight: 500;
   font-size: 1.2em;
 }
-.mount {
-  display: inline-block !important;
-}
-.mount button {
-  width: 40px;
-}
+
 .btnplus {
   border-radius: 0 10px 10px 0;
 }

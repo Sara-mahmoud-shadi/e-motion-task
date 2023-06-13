@@ -1,17 +1,19 @@
 <template>
-    <div class="product">
-        <div class="position-relative " style="width: 15rem;">
-            
-            <b-icon-heart-fill class="heart" :class="{ redheart:changeheartt[index] }"  @click="changeHeart(index)"></b-icon-heart-fill>
+    <div class="product position-relative">
+        <div>
+            <template class="position-relative ">
+                <b-icon-heart-fill class="heart" :class="{ redheart:changeheartt[index] }"  @click="changeHeart(index)"></b-icon-heart-fill>
             
             <nuxt-link  :to="`/products/${data.id}`">
                 <div class="image" >
                 <img class="card-img-top w-100 h-100" :src="data.thumbnail" :alt="data.slug">
             </div>
             </nuxt-link>
+            </template>
+           
           
             
-            <div class="card-body">
+            <div class="card-body position-absolute">
                 <p class="card-title">{{data.name}}</p>
                 <h6 class="card-text"> {{ data.price }} EGP</h6>
                 <button href="#" class="btn addcart " @click="addcart(data)">add to cart</button>
@@ -74,15 +76,20 @@ export default {
 </script>
 <style >
 .heart{
-position: absolute;
-right: 0;
-cursor: pointer;
-color:#046c52;
-top:10px
+    position: absolute;
+    right: 5%;
+    cursor: pointer;
+    color: #046c52;
+    top: 30px;
+    font-size: 1.5em;
 }
 .image{
     width: 70%;
     margin: auto;
+    height: 250px !important;
+}
+.card-body{
+    bottom: 0 !important;
 }
 .addcart{
     border: 1px solid #036e57;
@@ -96,7 +103,8 @@ a{
     font-weight: 500 !important;
 }
 .product{box-shadow: 1px 1px 9px #9bcbc1;
-    border-radius: 7px;}
+    border-radius: 7px;
+    min-height: 350px !important}
 h6{
     color:#017b62;
     border-bottom: none ;
