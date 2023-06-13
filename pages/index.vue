@@ -121,6 +121,7 @@ export default {
       }
     },
     total() {
+      this.subtotal=0
       if ("cart" in localStorage) {
         this.productcart = JSON.parse(localStorage.getItem("cart"));
         for (let i of this.productcart)

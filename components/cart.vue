@@ -18,7 +18,7 @@
           <div class="col-9">
             <p>{{ productcar.product.name }}</p>
             <span class="price"
-              >{{ productcar.product.price * productcar.mount }} EGP</span
+              >{{ productcar.product.price.toFixed(2) * productcar.mount }} EGP</span
             >
             <span class="price" v-if="productcar.weight">
               / {{ productcar.weight }} gm</span
@@ -86,7 +86,7 @@ export default {
       if ("cart" in localStorage) {
         this.productcart = JSON.parse(localStorage.getItem("cart"));
         for (let i of this.productcart)
-          this.subtotal += i.product.price * i.mount;
+          this.subtotal += i.product.price * i.mount; 
       }
     },
 
@@ -120,13 +120,14 @@ export default {
         localStorage.setItem("Wishlist", JSON.stringify(this.Wishlistproducts));
       }
       this.removefromcart(Wishlist.id);
-      this.total();
+      
       this.$emit("changeQuantity")
       this.$emit("changecolor",data.product.id)
     },
     removefromcart(id) {
       let newproduct = this.productcart.filter((el) => el.product.id != id);
       localStorage.setItem("cart", JSON.stringify(newproduct));
+      this.total();
     },
   },
 };

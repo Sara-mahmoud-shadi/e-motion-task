@@ -1,6 +1,6 @@
 <template>
     <div class="container mt-5">
-        <h5>Total Price {{ price }}</h5>
+        <h5>Total Price {{ price.toFixed(2) }}</h5>
         <div class="table-content table-responsive m-auto">
   <table class="table table-hover text-center table-responsive">
     <thead>
@@ -17,12 +17,12 @@
       <tr  v-for="productt in this.orderproduct">
        
         <th scope="row"><div style="width: 200px; height:40vh; margin: auto;">
-          <img class="w-100 h-100" :src="productt.product.product.thumbnail">
+          <img class="w-100 h-100" :src="productt.product.thumbnail">
         </div></th>
-        <td >{{productt.product.product.name}}</td>
-        <td>{{ productt.product.product.price }}</td>
-        <td>{{ productt.product.mount }}</td>
-        <td>{{productt.product.product.price * productt.product.mount}}</td>
+        <td >{{productt.product.name}}</td>
+        <td>{{ productt.product.price }}</td>
+        <td>{{ productt.mount }}</td>
+        <td>{{productt.product.price * productt.mount}}</td>
         
       </tr>
       
@@ -41,16 +41,16 @@ export default {
         }
     },
     mounted(){
-      this.orderproduct= JSON.parse(localStorage.getItem("order"))
+      this.orderproduct= JSON.parse(localStorage.getItem("cart"))
       this.totalprice()
     },
     methods:{
       totalprice(){
       
-      if("order" in localStorage){
-        this.orderproduct= JSON.parse(localStorage.getItem("order"))
+      if("cart" in localStorage){
+        this.orderproduct= JSON.parse(localStorage.getItem("cart"))
       for(let i of this.orderproduct)
-      this.price+=i.product.product.price * i.product.mount 
+      this.price+=i.product.price * i.mount 
       }
       
     
