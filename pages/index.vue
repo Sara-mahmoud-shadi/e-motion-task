@@ -122,6 +122,7 @@ export default {
     },
     total() {
       this.subtotal=0
+      this.productcart=[]
       if ("cart" in localStorage) {
         this.productcart = JSON.parse(localStorage.getItem("cart"));
         for (let i of this.productcart)
@@ -129,7 +130,7 @@ export default {
       }
     },
     changeQuantity(){
-      this.productcart=JSON.parse(localStorage.getItem("cart"))
+      this.total()
     },
     addtocart(val) {
       let product = {

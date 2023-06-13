@@ -67,11 +67,11 @@ export default {
   props: ["showicon", "productcart", "subtotal"],
   data() {
     return {
-      subtotal: 0,
+      subtotal:0,
       Wishlistproducts: [],
     };
   },
-
+ 
   methods: {
     totalPrice() {
       this.subtotal = 0;
@@ -84,6 +84,7 @@ export default {
     total() {
       this.subtotal = 0;
       if ("cart" in localStorage) {
+         this.productcart = [];
         this.productcart = JSON.parse(localStorage.getItem("cart"));
         for (let i of this.productcart)
           this.subtotal += i.product.price * i.mount; 
@@ -93,7 +94,8 @@ export default {
     deleteproduct(i) {
       this.productcart.splice(i, 1);
       localStorage.setItem("cart", JSON.stringify(this.productcart));
-      this.total();
+      this.$emit("changeQuantity")
+    //  this.total();
     },
     Wishlist(data) {
       let Wishlist = {
@@ -127,7 +129,7 @@ export default {
     removefromcart(id) {
       let newproduct = this.productcart.filter((el) => el.product.id != id);
       localStorage.setItem("cart", JSON.stringify(newproduct));
-      this.total();
+     // this.total();
     },
   },
 };
