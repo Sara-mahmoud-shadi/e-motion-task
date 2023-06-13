@@ -29,14 +29,14 @@
           <hr />
           <div class="row">
             <div
-              v-for="product in this.products"
+              v-for=" (product,index) in this.products"
               class="col-12 col-md-6 col-lg-3 mb-4"
             >
               <productCard
                 :data="product"
                 @addproduct="addtocart"
                 :change="change"
-
+                :index="index"
               ></productCard>
             </div>
           </div>
@@ -126,7 +126,7 @@ export default {
       if ("cart" in localStorage) {
         this.productcart = JSON.parse(localStorage.getItem("cart"));
         for (let i of this.productcart)
-          this.subtotal += i.product.price * i.mount;
+          this.subtotal += i.price * i.mount;
       }
     },
     changeQuantity(){

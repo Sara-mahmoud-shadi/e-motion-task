@@ -2,8 +2,8 @@
     <div class="product">
         <div class="position-relative " style="width: 15rem;">
             
-            <b-icon-heart class="heart" :class="{ redheart:changeheartt[data.id] }"  @click="changeHeart(data.id)"></b-icon-heart>
-            <p>{{ changeheartt[data.id] }} {{ active[data.id] }}</p>
+            <b-icon-heart-fill class="heart" :class="{ redheart:changeheartt[index] }"  @click="changeHeart(index)"></b-icon-heart-fill>
+            
             <nuxt-link  :to="`/products/${data.id}`">
                 <div class="image" >
                 <img class="card-img-top w-100 h-100" :src="data.thumbnail" :alt="data.slug">
@@ -21,37 +21,47 @@
 </template>
 
 <script>
-import { BIconHeart } from "bootstrap-vue";
+import { BIconHeartFill } from "bootstrap-vue";
 export default {
     component:{
-        BIconHeart
+        BIconHeartFill
     },
- props:['data','change'],
- mounted(){
-    this.active = this.active.map((el) => {
-        el == "true" ? "false" : "false";
-      });
- },
+ props:['data','change','index'],
+ 
  data(){
     return{
         d:"sdsd",
-        active: ["true"],
         changeheartt:[],
+        product:[]
         
     }
  },
+ 
  methods:{
     addcart(data){
         this.$emit("addproduct",data)
     },
     changeHeart(index){
+        this.changeheartt=this.changeheartt.map(el=>
+        el == "true" ? "false" : "false")
+        if("cart" in localStorage)
+             this.product=JSON.parse(localStorage.getItem("cart"))
         if(this.changeheartt[index]) {
             this.changeheartt[index]=false 
-            console.log(this.changeheartt[index])
+          
+                this.product.push({product:this.data,mount:1})
+                localStorage.setItem("cart",JSON.stringify(this.product))
+            
+            
         }
+        
         else  {
+            console.log(this.changeheartt[index])
             this.changeheartt[index]=true
             console.log(this.changeheartt[index])
+            this.product=this.product.filter(el=>el.product.id != this.data.id)
+            console.log(this.product)
+            localStorage.setItem("cart",JSON.stringify(this.product))
         }  
 
     },
@@ -78,8 +88,6 @@ top:10px
 }
 .redheart{
     color: red !important;
-    font-size: 20px;
-    background-color: #036e57;
 }
 a{
     font-weight: 500 !important;
