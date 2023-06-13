@@ -126,7 +126,8 @@ export default {
       if ("cart" in localStorage) {
         this.productcart = JSON.parse(localStorage.getItem("cart"));
         for (let i of this.productcart)
-          this.subtotal += i.price * i.mount;
+          this.subtotal += i.product.price * i.mount;
+          console.log(this.productcart[0].product.price)
       }
     },
     changeQuantity(){
