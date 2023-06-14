@@ -70,9 +70,9 @@ export default {
     return {
       subtotal:0,
       Wishlistproducts: [],
+      productcart:[]
     };
   },
- 
   methods: {
     totalPrice() {
       this.subtotal = 0;

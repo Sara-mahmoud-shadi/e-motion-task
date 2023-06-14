@@ -178,6 +178,11 @@ export default {
     showicons() {
       if (this.showicon) this.showicon = false;
       else this.showicon = true;
+      
+      if ("cart" in localStorage) {
+            this.productcart = JSON.parse(localStorage.getItem("cart"));
+          }
+      this.total()
     },
   },
 };

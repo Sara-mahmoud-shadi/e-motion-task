@@ -91,6 +91,8 @@ export default {
             this.changeheartt[index]=true
             this.product.push({product:this.data,mount:1})
             localStorage.setItem("Wishlist",JSON.stringify(this.product))
+            this.productcart=this.productcart.filter(el=>el.product.id!=this.data.id)
+            localStorage.setItem("cart",JSON.stringify(this.productcart))
         }
            
         
