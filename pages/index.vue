@@ -35,13 +35,14 @@
           <div class="row">
             <div
               v-for=" (product,index) in this.products"
-              class="col-12 col-md-6 col-lg-3 mb-4"
+              class="col-12 col-md-6 col-lg-3 col-xl-2 mb-4"
             >
               <productCard
                 :data="product"
                 @addproduct="addtocart"
                 :change="change"
                 :index="index"
+                :counter="counter"
               ></productCard>
             </div>
           </div>
@@ -87,7 +88,8 @@ export default {
       subtotal: 0,
       showicon: false,
       mount: 1,
-      change:[]
+      change:[],
+      counter:0
     };
   },
   mounted() {
@@ -155,6 +157,7 @@ export default {
             console.log(exist.mount) 
             localStorage.setItem("cart", JSON.stringify(this.productcart));
           }
+          
         } else {
           this.productcart.push({ product, mount: this.mount });
           localStorage.setItem("cart", JSON.stringify(this.productcart));
@@ -169,6 +172,7 @@ export default {
               autoHideDelay: 2000,
             });
       }
+      
     },
     showicons() {
       if (this.showicon) this.showicon = false;
