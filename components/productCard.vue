@@ -110,7 +110,7 @@ export default {
     font-size: 1.5em;
 }
 .image{
-    width: 80%;
+    width: 70%;
     margin: auto;
     height: 220px !important;
 }
