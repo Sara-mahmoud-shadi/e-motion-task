@@ -96,10 +96,11 @@ export default {
         this.productcart = JSON.parse(localStorage.getItem("cart"));
         let exist = this.productcart.find((el) => el.product.id == data.id);
         if (exist) {
-          let existweight = this.productcart.find(
+          if(exist.weight!=undefined){
+            let existweight = this.productcart.find(
             (el) => el.weight == this.weightvalue
           );
-          if (!existweight) {
+          if (!existweight ) {
             this.productcart.push({
               product,
               mount: this.mount,
@@ -108,11 +109,15 @@ export default {
             localStorage.setItem("cart", JSON.stringify(this.productcart));
           }
           else{
-           
             existweight.mount=this.mount+existweight.mount
-            console.log(existweight.mount)
             localStorage.setItem("cart", JSON.stringify(this.productcart));
           }
+          }
+          else{
+            exist.mount=this.mount+exist.mount
+            localStorage.setItem("cart", JSON.stringify(this.productcart));
+          }
+          
         } else {
           this.productcart.push({
             product,

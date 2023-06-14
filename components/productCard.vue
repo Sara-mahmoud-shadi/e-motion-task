@@ -16,7 +16,7 @@
                 <div class="position-relative">
                    
                   <button href="#" class="btn addcart position-relative" @click="addcart(data)">add to cart
-                    <p class="position-absolute count" v-if="this.counter[this.index]>0"> sdsdsd {{counter[index]}}</p>
+                    <p class="position-absolute count" v-if="count > 0" > {{count}}</p>
                 </button>
                 </div>
                 
@@ -38,8 +38,20 @@ export default {
         d:"sdsd",
         changeheartt:[],
         product:[],
-        counter:[]
+        counter:[],
+        count:0,
+        productcart:[]
     }
+ },
+ mounted(){
+    if ("cart" in localStorage) {
+            this.productcart = JSON.parse(localStorage.getItem("cart"));
+          let exist = this.productcart.find((el) => el.product.id == this.data.id);
+          if (exist) {
+            this.count=exist.mount
+            console.log(this.count)
+          }
+        }
  },
  
  
@@ -49,15 +61,13 @@ export default {
         if ("cart" in localStorage) {
             this.productcart = JSON.parse(localStorage.getItem("cart"));
           let exist = this.productcart.find((el) => el.product.id == data.id);
-          if (!exist) {
-           this.counter[this.index]=1
-           console.log(this.counter[this.index])
+          if (exist) {
+            this.count=exist.mount
+            console.log(this.count)
           }
-          else{
-            this.counter[this.index]=exist.mount
-            console.log(this.counter[this.index])
-          }
+         
         }
+       
     },
     changeHeart(index){
         this.changeheartt=this.changeheartt.map(el=>

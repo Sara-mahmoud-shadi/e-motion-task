@@ -42,7 +42,7 @@
                 @addproduct="addtocart"
                 :change="change"
                 :index="index"
-                :counter="counter"
+                :count="count"
               ></productCard>
             </div>
           </div>
@@ -89,7 +89,7 @@ export default {
       showicon: false,
       mount: 1,
       change:[],
-      counter:0
+      count:0
     };
   },
   mounted() {
@@ -162,6 +162,7 @@ export default {
           this.productcart.push({ product, mount: this.mount });
           localStorage.setItem("cart", JSON.stringify(this.productcart));
         }
+        this.count=this.productcart.mount
         this.total();
         let body = "Success";
             this.$bvToast.toast(body, {
