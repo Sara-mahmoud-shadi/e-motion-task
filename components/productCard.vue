@@ -5,7 +5,7 @@
                 <b-icon-heart-fill class="heart" :class="{ redheart:changeheartt[index] }"  @click="changeHeart(index)"></b-icon-heart-fill>
             
             <nuxt-link  :to="`/products/${data.id}`">
-                <div class="image" >
+                <div class="image " >
                 <img class="card-img-top w-100 h-100" :src="data.thumbnail" :alt="data.slug">
             </div>
             </nuxt-link>
@@ -110,7 +110,7 @@ export default {
     font-size: 1.5em;
 }
 .image{
-    width: 70%;
+    width: 80%;
     margin: auto;
     height: 250px !important;
 }
