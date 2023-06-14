@@ -112,7 +112,7 @@ export default {
 .image{
     width: 80%;
     margin: auto;
-    height: 250px !important;
+    height: 220px !important;
 }
 .card-body{
     bottom: 0 !important;
